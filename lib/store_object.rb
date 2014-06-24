@@ -71,6 +71,8 @@ class StoreObject
     case type
       when :boolean
         value.nil? ? nil : value == 'true' ? true : false
+      when :decimal
+        value.to_d
       else
         value
     end
