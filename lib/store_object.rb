@@ -70,7 +70,7 @@ class StoreObject
   def cast value, type
     case type
       when :boolean
-        value.nil? ? nil : value == 'true' ? true : false
+        value.nil? ? nil : (value == 'true' || value == '1') ? true : false
       when :decimal
         value.to_d
       else
@@ -79,7 +79,8 @@ class StoreObject
   end
 
   def read_store_object_attribute(key)
-    cast(@accessor.read(@parent, @store_attribute, key),  stored_object_attributes[key][:type]) || stored_object_attributes[key][:default]
+    value = cast(@accessor.read(@parent, @store_attribute, key),  stored_object_attributes[key][:type])
+    value.nil? ? stored_object_attributes[key][:default] : value
   end
 
   def write_store_object_attribute(key, value)
