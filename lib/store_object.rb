@@ -72,7 +72,7 @@ class StoreObject
       when :boolean
         value.nil? ? nil : (value == 'true' || value == '1') ? true : false
       when :decimal
-        value.to_d
+        value.to_d if value.present?
       else
         value
     end
