@@ -49,8 +49,7 @@ class StoreObject
   def initialize parent, store_attribute
     @parent = parent
     @store_attribute = store_attribute
-    column_types = parent.instance_variable_get(:@column_types)
-    @accessor = column_types[store_attribute.to_s].accessor
+    @accessor = parent.column_for_attribute(store_attribute).accessor
   end
 
   def update_attributes(attributes = {})
